@@ -43,6 +43,7 @@ $(function(){
       var numberCats = JSON.parse(localStorage.catNames).length;
       for(i=0;i<numberCats;i++){
         model.add({
+          id: i,
           name: JSON.parse(localStorage.catNames)[i],
           image: JSON.parse(localStorage.catImages)[i],
           counter: 0
@@ -54,7 +55,7 @@ $(function(){
       return model.getAllCats();
     },
 
-    selectCat: function(){
+    displaySelectedCat: function(){
       var selectedCat = listView.catList[0].value;
       model.switchCurrentCat(selectedCat);
       this.selectedCat = parseInt(localStorage.selectedCat);
@@ -70,7 +71,7 @@ $(function(){
 
     increaseCat: function(){
       model.increaseCat();
-      displayAreaView.render()
+      this.displaySelectedCat();
     }
 
 
@@ -80,7 +81,7 @@ $(function(){
     init: function(){
       this.catList = $('#catList');
       this.catList.change(function(){
-        octopus.selectCat();
+        octopus.displaySelectedCat();
       })
       listView.render();
     },
@@ -106,6 +107,7 @@ $(function(){
     },
 
     render: function(){
+      titleStr =
       htmlStr = '<img src=cat' + octopus.selectedCat + '.jpg /img>'
       this.catDisplayArea.html( htmlStr );
       clicksCount = (octopus.getClicks());
