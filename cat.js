@@ -4,8 +4,7 @@ $(function(){
     init: function(){
       localStorage.cats = JSON.stringify([]);
       localStorage.catNames = JSON.stringify(["Gandalf", "Saruman", "Zazzles", "Obama", "Tank"]);
-      localStorage.catImages = JSON.stringify(["cat.jpg", "cat2.jpg", "cat3.jpg", "cat4.jpg", "cat5.jpg"]);
-      localStorage.selectedCat = 0;
+      localStorage.catImages = JSON.stringify(["cat0.jpg", "cat1.jpg", "cat2.jpg", "cat3.jpg", "cat4.jpg"]);
     },
 
     add: function(obj){
@@ -18,12 +17,8 @@ $(function(){
       return JSON.parse(localStorage.cats);
     },
 
-    switchCurrentCat: function(cat){
-      localStorage.selectedCat = cat;
-    },
-
     increaseCat: function(){
-      cat = localStorage.selectedCat;
+      cat = octopus.selectedCat.id;
       cats = this.getAllCats();
       cats[cat].counter ++;
       localStorage.cats = JSON.stringify(cats);
@@ -34,7 +29,8 @@ $(function(){
     init: function(){
       model.init();
       this.addAllCats();
-      this.selectedCat = parseInt(localStorage.selectedCat) + 1;
+      console.log(localStorage.cats)
+      this.selectedCat = JSON.parse(localStorage.cats)[0];
       listView.init();
       displayAreaView.init();
     },
@@ -57,14 +53,15 @@ $(function(){
 
     displaySelectedCat: function(){
       var selectedCat = listView.catList[0].value;
-      model.switchCurrentCat(selectedCat);
-      this.selectedCat = parseInt(localStorage.selectedCat);
+      console.log('Cat selected in list ' + selectedCat)
+      this.selectedCat = JSON.parse(localStorage.cats)[selectedCat];
+      console.log('Cat in octopus' + this.selectedCat.name)
       displayAreaView.render();
     },
 
     getClicks: function(){
       cats = this.getCats();
-      currentCat = this.selectedCat;
+      currentCat = this.selectedCat.id;
       return cats[currentCat].counter;
 
     },
@@ -100,6 +97,7 @@ $(function(){
     init: function(){
       this.catDisplayArea = $('#catDisplayArea');
       this.counterElement = $('#counterElement');
+      this.catTitle = $('#catTitle');
       displayAreaView.render();
 
       this.catDisplayArea.click(function(){
@@ -107,11 +105,12 @@ $(function(){
     },
 
     render: function(){
-      titleStr =
-      htmlStr = '<img src=cat' + octopus.selectedCat + '.jpg /img>'
+      titleStr = octopus.selectedCat.name;
+      htmlStr = '<img src=cat' + octopus.selectedCat.id + '.jpg /img>'
+      this.catTitle.html(titleStr);
       this.catDisplayArea.html( htmlStr );
       clicksCount = (octopus.getClicks());
-      this.counterElement.html( clicksCount );
+      this.counterElement.html( 'The number of Fabians clicked: ' + clicksCount );
     }
   };
 
