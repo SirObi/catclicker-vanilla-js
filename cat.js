@@ -106,7 +106,7 @@ $(function(){
 
     render: function(){
       titleStr = octopus.selectedCat.name;
-      htmlStr = '<img src=cat' + octopus.selectedCat.id + '.jpg /img>'
+      htmlStr = '<img src=' + octopus.selectedCat.image + ' /img>'
       this.catTitle.html(titleStr);
       this.catDisplayArea.html( htmlStr );
       clicksCount = (octopus.getClicks());
