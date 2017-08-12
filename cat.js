@@ -73,7 +73,6 @@ $(function(){
       this.selectedCat = JSON.parse(localStorage.cats)[selectedCat];
       console.log(this.selectedCat.name);
       displayAreaView.render();
-      listView.render();
     },
 
     getClicks: function(){
@@ -90,10 +89,10 @@ $(function(){
 
     modifyCat: function(){
       catsId = this.selectedCat.id;
-      console.log("Selected cat " + catsId);
       newName = adminAreaView.newName.val();
       newImage = adminAreaView.newImage.val();
       newClicks = adminAreaView.newClicks.val();
+
       model.modify(catsId, newName, newImage, newClicks);
     }
 
