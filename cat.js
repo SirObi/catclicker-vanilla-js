@@ -14,18 +14,11 @@ $(function(){
     },
 
     modify: function(id, name, url, clicks){
-      console.log('Passed into function ' + name + url + clicks);
       data = JSON.parse(localStorage.cats);
       catToModify = data[id];
-      console.log('cat to modify')
-      console.log(catToModify);
       catToModify.name = name;
-      console.log('data')
-      console.log(data);
       catToModify.image = url;
       catToModify.counter = clicks;
-      console.log('cat to modify')
-      console.log(catToModify);
       localStorage.cats = JSON.stringify(data);
     },
 
@@ -45,7 +38,6 @@ $(function(){
     init: function(){
       model.init();
       this.addAllCats();
-      console.log(localStorage.cats)
       this.selectedCat = JSON.parse(localStorage.cats)[0];
       listView.init();
       displayAreaView.init();
@@ -71,7 +63,6 @@ $(function(){
     displaySelectedCat: function(){
       var selectedCat = listView.catList[0].value;
       this.selectedCat = JSON.parse(localStorage.cats)[selectedCat];
-      console.log(this.selectedCat.name);
       displayAreaView.render();
     },
 
@@ -94,6 +85,7 @@ $(function(){
       newClicks = adminAreaView.newClicks.val();
 
       model.modify(catsId, newName, newImage, newClicks);
+      this.displaySelectedCat();
     }
 
 
@@ -150,8 +142,8 @@ $(function(){
       this.displayAdmin = $('#displayAdmin');
 
       this.submitNew.click(function(){
-        console.log('obi');
         octopus.modifyCat();
+        adminArea.style.visibility = "hidden";
       });
 
       this.cancelNew.click(function(){
