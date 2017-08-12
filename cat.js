@@ -63,9 +63,9 @@ $(function(){
     displaySelectedCat: function(){
       var selectedCat = listView.catList[0].value;
       this.selectedCat = JSON.parse(localStorage.cats)[selectedCat];
-      console.log(listView.catList[0][selectedCat]);
       listView.catList[0][selectedCat].innerText = this.selectedCat.name;
       displayAreaView.render();
+      adminAreaView.render();
     },
 
     getClicks: function(){
