@@ -13,6 +13,22 @@ $(function(){
       localStorage.cats = JSON.stringify(data);
     },
 
+    modify: function(id, name, url, clicks){
+      console.log('Passed into function ' + name + url + clicks);
+      data = JSON.parse(localStorage.cats);
+      catToModify = data[id];
+      console.log('cat to modify')
+      console.log(catToModify);
+      catToModify.name = name;
+      console.log('data')
+      console.log(data);
+      catToModify.image = url;
+      catToModify.counter = clicks;
+      console.log('cat to modify')
+      console.log(catToModify);
+      localStorage.cats = JSON.stringify(data);
+    },
+
     getAllCats: function(){
       return JSON.parse(localStorage.cats);
     },
@@ -33,6 +49,7 @@ $(function(){
       this.selectedCat = JSON.parse(localStorage.cats)[0];
       listView.init();
       displayAreaView.init();
+      adminAreaView.init();
     },
 
     addAllCats: function(){
@@ -53,10 +70,10 @@ $(function(){
 
     displaySelectedCat: function(){
       var selectedCat = listView.catList[0].value;
-      console.log('Cat selected in list ' + selectedCat)
       this.selectedCat = JSON.parse(localStorage.cats)[selectedCat];
-      console.log('Cat in octopus' + this.selectedCat.name)
+      console.log(this.selectedCat.name);
       displayAreaView.render();
+      listView.render();
     },
 
     getClicks: function(){
@@ -69,6 +86,15 @@ $(function(){
     increaseCat: function(){
       model.increaseCat();
       this.displaySelectedCat();
+    },
+
+    modifyCat: function(){
+      catsId = this.selectedCat.id;
+      console.log("Selected cat " + catsId);
+      newName = adminAreaView.newName.val();
+      newImage = adminAreaView.newImage.val();
+      newClicks = adminAreaView.newClicks.val();
+      model.modify(catsId, newName, newImage, newClicks);
     }
 
 
@@ -113,6 +139,39 @@ $(function(){
       this.counterElement.html( 'The number of Fabians clicked: ' + clicksCount );
     }
   };
+
+  var adminAreaView = {
+    init: function() {
+      this.adminArea = $('#adminArea');
+      this.newName = $('#newName');
+      this.newImage = $('#newImage');
+      this.newClicks = $('#newClicks');
+      this.submitNew = $('#submitNew');
+      this.cancelNew = $('#cancelNew');
+      this.displayAdmin = $('#displayAdmin');
+
+      this.submitNew.click(function(){
+        console.log('obi');
+        octopus.modifyCat();
+      });
+
+      this.cancelNew.click(function(){
+        adminArea.style.visibility = "hidden";
+      });
+
+      this.displayAdmin.click(function(){
+        adminArea.style.visibility = "";
+      });
+
+      adminAreaView.render();
+    },
+
+    render: function() {
+      this.newName.val(octopus.selectedCat.name);
+      this.newImage.val(octopus.selectedCat.image);
+      this.newClicks.val(octopus.selectedCat.counter);
+    }
+  }
 
   octopus.init();
 }());
