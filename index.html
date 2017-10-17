@@ -2,29 +2,49 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" defer>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js" defer></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous" defer></script>
+    <title>Welcome to Click-a-cat!</title>
   </head>
   <body>
-    <span>Select the appropriate Fabian</span>
-    <select id="catList"></select>
-    <h1 id="catTitle"></h1>
-    <div id="catDisplayArea"></div>
-    <span id="counterElement"></span>
-    <button id="displayAdmin">Show Admin</button>
-    <div id="adminArea" style='visibility:hidden'>
-        <fieldset>
-          <legend>New cat data</legend>
-          Name:
-          <input type="text" id="newName"></input>
-          URL:
-          <input type="text" id="newImage"></input>
-          #Clicks:
-          <input type="text" id="newClicks"></input>
-          <input type="submit" id="submitNew"></input>
-          <button id="cancelNew">Cancel</button>
-        </fieldset>
+    <div class="container">
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-md-4 offset-md-4 text-center">
+            <h5>Select the appropriate Cat</h5>
+            <select id="catList"></select>
+            <br /><br />
+            <h1 id="catTitle"></h1>
+            <div class="card" id="catDisplayArea"></div>
+            <p id="counterElement"></p>
+            <button class="btn btn-secondary" id="displayAdmin">Show Admin</button>
+            <div class="card" id="adminArea" style='visibility:hidden'>
+                <fieldset>
+                  <legend>New cat data</legend>
+                  <div class="form-group">
+                    <label for="newName">Name:</label>
+                    <input class="form-control" type="text" id="newName"></input>
+                  </div>
+                  <div class="form-group">
+                    <label for="newImage">Img URL:</label>
+                    <input class="form-control" type="text" id="newImage"></input>
+                  </div>
+                  <div class="form-group">
+                    <label for="newClicks">#Clicks:</label>
+                    <input class="form-control" type="text" id="newClicks"></input>
+                  </div>
+                  <input class="btn btn-success" type="submit" id="submitNew"></input>
+                  <button class="btn btn-danger" id="cancelNew">Cancel</button>
+                </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src=cat.js></script>
     </div>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src=cat.js></script>
   </body>
 </html>
